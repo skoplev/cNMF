@@ -565,6 +565,11 @@ class cNMF():
             Arguments to be passed to ``non_negative_factorization``
 
         """
+        # Following https://github.com/dylkot/cNMF/issues/8#issue-651940726
+        # to resolve an error:
+        # TypeError: H should have the same dtype as X. Got H.dtype = float64.
+        X = X.astype(np.float64)
+        
         (usages, spectra, niter) = non_negative_factorization(X, **nmf_kwargs)
 
         return(spectra, usages)
